@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Crucero por el Caribe · Enero 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Pantone 17-1818 — Red Violet */
+    --red-violet: #B5324E;
+    --red-violet-light: #C9556A;
+    --red-violet-pale: #F2DDE2;
+    /* Pantone 16-0110 TCX — Aloe Green */
+    --olive: #8B9E6E;
+    --olive-light: #A8BC8A;
+    --olive-pale: #EBF0E4;
+    /* Pantone 11-0601 TCX — Blanc de Blanc */
+    --white: #F5F0E8;
+    --gray-50: #EDE8DF;
+    --gray-100: #E0D9CE;
+    --gray-200: #C8BFB2;
+    --gray-400: #9A9088;
+    --gray-600: #5C544C;
+    --gray-800: #2E2820;
+    --black: #8B9E6E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--white);
+    color: var(--gray-800);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────── */
+  .hero {
+    background: var(--black);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 60%, rgba(181,50,78,0.08) 0%, transparent 70%),
+      linear-gradient(175deg, #F5EDE3 0%, #EDE0D0 100%);
+  }
+
+  .hero-ornament {
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(181,50,78,0.25);
+    pointer-events: none;
+  }
+  .hero-ornament::after {
+    content: '';
+    position: absolute;
+    inset: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(181,50,78,0.15);
+  }
+
+  .hero-tag {
+    position: relative;
+    display: inline-block;
+    background: var(--red-violet);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    margin: 0 24px 20px;
+    width: fit-content;
+  }
+
+  .hero-title {
+    position: relative;
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--gray-800);
+    line-height: 0.95;
+    padding: 0 24px;
+    letter-spacing: -1px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--red-violet);
+  }
+
+  .hero-dates {
+    position: relative;
+    margin: 20px 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-dates span {
+    font-size: 13px;
+    color: var(--gray-600);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-dates .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--red-violet);
+    flex-shrink: 0;
+  }
+
+  .hero-scroll {
+    position: relative;
+    margin: 32px 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-400);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--red-violet);
+  }
+
+  /* ── NAV ──────────────────────────────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .nav-inner {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 14px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-btn.active {
+    color: var(--red-violet);
+    border-bottom-color: var(--red-violet);
+  }
+
+  /* ── SECTIONS ─────────────────────────── */
+  .section {
+    display: none;
+    animation: fadeUp 0.35s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION HEADER ───────────────────── */
+  .section-header {
+    padding: 32px 24px 24px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-violet);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* ── OVERVIEW CARDS ───────────────────── */
+  .overview-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .overview-cell {
+    padding: 20px 16px;
+    border-right: 1px solid var(--gray-100);
+    text-align: center;
+  }
+
+  .overview-cell:last-child { border-right: none; }
+
+  .overview-cell .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .overview-cell .lbl {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+
+  /* ── TIMELINE ─────────────────────────── */
+  .timeline {
+    padding: 24px 0;
+  }
+
+  .day-card {
+    position: relative;
+    margin: 0 16px 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    transition: box-shadow 0.2s;
+  }
+
+  .day-card:active {
+    box-shadow: 0 4px 20px rgba(181,50,78,0.12);
+  }
+
+  .day-header {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .day-num {
+    width: 60px;
+    flex-shrink: 0;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 8px;
+  }
+
+  .day-num .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .day-num .mon {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-top: 2px;
+  }
+
+  .day-info {
+    flex: 1;
+    padding: 14px 16px;
+  }
+
+  .day-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-violet);
+    margin-bottom: 2px;
+  }
+
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.2;
+  }
+
+  .day-subtitle {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 3px;
+  }
+
+  .day-body {
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .act-list { list-style: none; padding-top: 14px; }
+
+  .act-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-50);
+  }
+
+  .act-item:last-child { border-bottom: none; }
+
+  .act-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--red-violet-pale);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .act-dot svg { width: 11px; height: 11px; }
+
+  .act-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+    line-height: 1.3;
+  }
+
+  .act-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 1px;
+  }
+
+  .act-price {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--red-violet);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  /* ── HOTEL CARDS ──────────────────────── */
+  .hotel-grid { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; }
+
+  .hotel-card {
+    border-radius: 12px;
+    border: 1px solid var(--gray-100);
+    overflow: hidden;
+  }
+
+  .hotel-card.recommended {
+    border-color: var(--red-violet);
+    box-shadow: 0 0 0 1px var(--red-violet);
+  }
+
+  .hotel-badge {
+    background: var(--red-violet);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    text-align: center;
+  }
+
+  .hotel-body { padding: 16px; }
+
+  .hotel-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .hotel-stars {
+    color: var(--red-violet);
+    font-size: 12px;
+    margin-top: 2px;
+    letter-spacing: 2px;
+  }
+
+  .hotel-perks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+  }
+
+  .perk-tag {
+    font-size: 11px;
+    background: var(--gray-50);
+    color: var(--gray-600);
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid var(--gray-100);
+  }
+
+  .hotel-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .price-total {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .price-per {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .price-pp {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--red-violet);
+    font-weight: 500;
+  }
+
+  /* ── COSTS TABLE ──────────────────────── */
+  .costs-wrap { padding: 20px 16px; }
+
+  .costs-group {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-100);
+  }
+
+  .costs-group-title {
+    background: var(--red-violet);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+  }
+
+  .cost-row {
+    display: flex;
+    align-items: center;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--gray-50);
+    gap: 10px;
+  }
+
+  .cost-row:last-child { border-bottom: none; }
+
+  .cost-name {
+    font-size: 13px;
+    color: var(--gray-800);
+    flex: 1;
+  }
+
+  .cost-pp {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+    text-align: right;
+    min-width: 80px;
+  }
+
+  .cost-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    display: block;
+    margin-top: 1px;
+  }
+
+  .total-bar {
+    background: var(--red-violet);
+    color: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+
+  .total-bar .tl { font-size: 12px; font-weight: 500; letter-spacing: 0.05em; opacity: 0.85; }
+  .total-bar .tv { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; }
+  .total-bar .ts { font-size: 11px; opacity: 0.7; text-align: right; }
+
+  /* ── INFO BLOCKS ──────────────────────── */
+  .info-wrap { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; }
+
+  .info-block {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-100);
+  }
+
+  .info-block-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .info-block-title .icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--red-violet-pale);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .info-block-title .icon svg { width: 14px; height: 14px; color: var(--red-violet); }
+
+  .info-block-title span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .info-list { list-style: none; }
+
+  .info-list li {
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gray-50);
+    font-size: 13px;
+    color: var(--gray-800);
+    line-height: 1.4;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+
+  .info-list li::before {
+    content: '—';
+    color: var(--red-violet);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* ── TYC ──────────────────────────────── */
+  .tyc-wrap { padding: 20px 16px; }
+
+  .tyc-item {
+    margin-bottom: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--gray-50);
+    border-left: 3px solid var(--red-violet);
+  }
+
+  .tyc-num {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red-violet);
+    margin-bottom: 4px;
+  }
+
+  .tyc-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .tyc-text {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ───────────────────────────── */
+  .footer {
+    padding: 32px 24px;
+    text-align: center;
+    border-top: 1px solid var(--gray-100);
+    background: var(--black);
+    color: var(--gray-400);
+    font-size: 12px;
+  }
+
+  .footer strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .footer-vv {
+    margin-top: 16px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red-violet);
+  }
+
+  /* ── NOTICE BANNER ────────────────────── */
+  .notice {
+    margin: 0 16px 16px;
+    padding: 12px 14px;
+    background: var(--red-violet-pale);
+    border-radius: 10px;
+    border-left: 3px solid var(--red-violet);
+    font-size: 12px;
+    color: var(--gray-800);
+    line-height: 1.5;
+  }
+
+  .notice strong { color: var(--red-violet); }
+
+  /* ── STATUS ──────────────────────────── */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 16px 20px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--red-violet-pale);
+    border: 1px solid rgba(181,50,78,0.2);
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--olive);
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .status-text {
+    font-size: 12px;
+    color: var(--olive);
+    font-weight: 500;
+  }
+
+  /* ── LOGO ─────────────────────────────── */
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 20px 24px 4px;
+  }
+  .logo-wrap img {
+    width: 110px;
+    height: auto;
+    opacity: 0.92;
+  }
+  .logo-wrap-bottom {
+    display: flex;
+    justify-content: center;
+    padding: 8px 24px 24px;
+    border-top: 1px solid var(--gray-100);
+    margin-top: 8px;
+  }
+  .logo-wrap-bottom img {
+    width: 90px;
+    height: auto;
+    opacity: 0.75;
+  }
+  .hero-logo {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .hero-logo img {
+    width: 120px;
+    height: auto;
+    opacity: 1;
+  }
+
+  /* ── NAV OPCIONES ─────────────────────── */
+  .nav-options {
+    background: linear-gradient(175deg, #F5EDE3 0%, #EDE0D0 100%);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0;
+  }
+
+  .nav-options-inner {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0;
+    padding: 12px 12px;
+  }
+
+  .nav-options-inner::-webkit-scrollbar { display: none; }
+
+  .nav-opt-btn {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-right: 8px;
+    min-width: 140px;
+  }
+
+  .nav-opt-btn:hover {
+    box-shadow: 0 2px 8px rgba(181,50,78,0.1);
+  }
+
+  .nav-opt-btn.active {
+    background: var(--red-violet);
+    border-color: var(--red-violet);
+  }
+
+  .nav-opt-btn .opt-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-opt-btn .opt-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .nav-opt-btn:not(.active) .opt-label { color: var(--gray-600); }
+  .nav-opt-btn:not(.active) .opt-price { color: var(--black); }
+
+  .nav-opt-btn.active .opt-label,
+  .nav-opt-btn.active .opt-price { color: #ffffff; }
+
+  /* ── OPTION WRAPPER ───────────────────── */
+  .option-wrapper {
+    display: none;
+  }
+
+  .option-wrapper.active {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ COTIZACIÓN CRUCERO ENERO 2027 ═════ -->
+<div class="option-wrapper active">
+
+<!-- ══ HERO ══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-tag">Crucero por el Caribe · 8 días · Enero 2027</div>
+  <h1 class="hero-title">Crucero por el Caribe<br><em>Grandeur of the Seas</em></h1>
+  <div class="hero-dates">
+    <span>09 – 16 Enero 2027</span>
+    <div class="dot"></div>
+    <span>2 viajeros</span>
+  </div>
+  <div class="hero-scroll">desliza para explorar</div>
+</section>
+
+<!-- ══ NAV ═══════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('itinerario', this)">Itinerario</button>
+    <button class="nav-btn" onclick="show('crucero', this)">Crucero</button>
+    <button class="nav-btn" onclick="show('incluye', this)">Incluye</button>
+    <button class="nav-btn" onclick="show('tips', this)">Tips</button>
+    <button class="nav-btn" onclick="show('compras', this)">Compras</button>
+    <button class="nav-btn" onclick="show('outfits', this)">Outfits</button>
+    <button class="nav-btn" onclick="show('tyc', this)">T&C</button>
+  </div>
+</nav>
+
+<!-- ══ ITINERARIO ════════════════════════ -->
+<section id="itinerario" class="section active">
+
+  <div class="section-header">
+    <div class="section-label">Itinerario de crucero</div>
+    <div class="section-title">Caribe en<br>8 días</div>
+    <p class="section-sub">7 noches navegando el Caribe: Panamá, Colombia, Aruba y Curaçao · Todo incluido a bordo.</p>
+  </div>
+
+  <div class="overview-strip">
+    <div class="overview-cell">
+      <div class="val">8</div>
+      <div class="lbl">Días</div>
+    </div>
+    <div class="overview-cell">
+      <div class="val">4</div>
+      <div class="lbl">Puertos</div>
+    </div>
+    <div class="overview-cell">
+      <div class="val">7</div>
+      <div class="lbl">Noches</div>
+    </div>
+  </div>
+
+  <div class="notice" style="margin-top: 16px;">
+    <strong>⚓ Solo crucero:</strong> Embarque en Colón, Panamá (09 ene) | Crucero (09 - 16 ene 2027) | Desembarque en Colón (16 ene). Vuelos y hospedaje pre-crucero no están incluidos en esta cotización.
+  </div>
+
+  <div class="timeline" style="padding-top: 8px;">
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">09</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 1 — Sábado · Embarque</div>
+          <div class="day-title">Colón, Panamá</div>
+          <div class="day-subtitle">GRANDEUR OF THE SEAS</div>
+          <div style="margin-top: 6px;">
+            <a href="https://www.youtube.com/watch?v=LnnZe7INDt4" target="_blank" style="font-size: 12px; color: var(--red-violet); text-decoration: none; font-weight: 500; letter-spacing: 0.05em;">▶ Conoce el crucero</a>
+          </div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><path d="M3 12c0-1.657.895-3.107 2.235-3.896M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9m18 0a9 9 0 0 1-17.86 1.993M4 12a8 8 0 0 1 15.96-1.993"/></svg>
+            </div>
+            <div>
+              <div class="act-name">Embarque en Colón · 1:00 PM</div>
+              <div class="act-note">Bienvenida a bordo · Cena inaugural en Grandeur of the Seas</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">10</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 2 — Domingo · En puerto</div>
+          <div class="day-title">Cartagena, Colombia</div>
+          <div class="day-subtitle">Joya colonial del Caribe</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.4-8 14-8 14S4 15.4 4 10a8 8 0 0 1 8-8z"/></svg>
+            </div>
+            <div>
+              <div class="act-name">En puerto en Cartagena</div>
+              <div class="act-note">Explora la ciudad amurallada y sus playas</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">11</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 3 — Lunes</div>
+          <div class="day-title">En navegación</div>
+          <div class="day-subtitle">Relájate a bordo</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><path d="M3 12c0-1.657.895-3.107 2.235-3.896M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9m18 0a9 9 0 0 1-17.86 1.993M4 12a8 8 0 0 1 15.96-1.993"/></svg>
+            </div>
+            <div>
+              <div class="act-name">Día de navegación</div>
+              <div class="act-note">Disfruta de la piscina, spa, entretenimiento y restaurantes a bordo</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">12</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 4 — Martes · En puerto</div>
+          <div class="day-title">Oranjestad, Aruba</div>
+          <div class="day-subtitle">Playas de aguas turquesas</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.4-8 14-8 14S4 15.4 4 10a8 8 0 0 1 8-8z"/></svg>
+            </div>
+            <div>
+              <div class="act-name">En puerto en Aruba</div>
+              <div class="act-note">Playas, compras y vida nocturna en la isla feliz</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">13</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 5 — Miércoles · En puerto</div>
+          <div class="day-title">Willemstad, Curaçao</div>
+          <div class="day-subtitle">Colorida y multicultural</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.4-8 14-8 14S4 15.4 4 10a8 8 0 0 1 8-8z"/></svg>
+            </div>
+            <div>
+              <div class="act-name">En puerto en Curaçao</div>
+              <div class="act-note">Paseo por Punda, playas y tiendas duty-free</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">14</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 6 — Jueves</div>
+          <div class="day-title">En navegación</div>
+          <div class="day-subtitle">Relájate a bordo</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><path d="M3 12c0-1.657.895-3.107 2.235-3.896M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9m18 0a9 9 0 0 1-17.86 1.993M4 12a8 8 0 0 1 15.96-1.993"/></svg>
+            </div>
+            <div>
+              <div class="act-name">Día de navegación</div>
+              <div class="act-note">Goza de shows, cine, casino, bares temáticos y más entretenimiento</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">15</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 7 — Viernes</div>
+          <div class="day-title">En navegación</div>
+          <div class="day-subtitle">Última noche de lujo</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><path d="M3 12c0-1.657.895-3.107 2.235-3.896M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9m18 0a9 9 0 0 1-17.86 1.993M4 12a8 8 0 0 1 15.96-1.993"/></svg>
+            </div>
+            <div>
+              <div class="act-name">Cena de gala de despedida</div>
+              <div class="act-note">Última noche especial a bordo · Shows y celebración</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">
+          <div class="num">16</div>
+          <div class="mon">Ene</div>
+        </div>
+        <div class="day-info">
+          <div class="day-label">Día 8 — Sábado · Desembarque</div>
+          <div class="day-title">Colón, Panamá</div>
+          <div class="day-subtitle">Fin de la aventura</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul class="act-list">
+          <li class="act-item">
+            <div class="act-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red-violet)" stroke-width="2.5"><path d="M3 12c0-1.657.895-3.107 2.235-3.896M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9m18 0a9 9 0 0 1-17.86 1.993M4 12a8 8 0 0 1 15.96-1.993"/></svg>
+            </div>
+            <div>
+              <div class="act-name">Desembarque en Colón</div>
+              <div class="act-note">7:00 AM · Regreso a casa con recuerdos inolvidables</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="notice">
+    <strong>Nota:</strong> Horarios de embarque, desembarque y escalas sujetos a confirmación de la naviera.
+  </div>
+</section>
+
+<!-- ══ CRUCERO ═══════════════════════════ -->
+<section id="crucero" class="section">
+  <div class="section-header">
+    <div class="section-label">Tu hogar flotante</div>
+    <div class="section-title">Crucero<br>de lujo</div>
+    <p class="section-sub">7 noches en crucero · Todo incluido · Elige entre 2 opciones de camarote.</p>
+  </div>
+
+  <div class="hotel-grid">
+
+    <div style="padding: 0 0 4px; margin-bottom: -4px;">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--olive);padding:0 2px 6px;">⚓ Crucero Caribe · 09-16 Ene 2027 · 7 noches</div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-body">
+        <div class="hotel-name">GRANDEUR OF THE SEAS<br>Royal Caribbean</div>
+        <div class="hotel-stars">★★★★★</div>
+        <div class="hotel-perks">
+          <span class="perk-tag">7 noches</span>
+          <span class="perk-tag">Sale de Colón, Panamá</span>
+          <span class="perk-tag">Todo incluido</span>
+          <span class="perk-tag">Entretenimiento 24/7</span>
+        </div>
+        <div style="margin-top: 4px;">
+          <a href="https://www.youtube.com/watch?v=LnnZe7INDt4" target="_blank" style="font-size: 12px; color: var(--red-violet); text-decoration: none; font-weight: 500; letter-spacing: 0.05em;">▶ Conoce el crucero</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 12px 0 4px; margin-bottom: -4px;">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--olive);padding:0 2px 6px;">🛏️ Opciones de camarote · Precio para 2 personas</div>
+    </div>
+
+    <!-- OPCIÓN 1 -->
+    <div class="hotel-card recommended">
+      <div class="hotel-badge">Opción 1 · Suite</div>
+      <div class="hotel-body">
+        <div class="hotel-name">Suite con<br>balcón amplio</div>
+        <div class="hotel-perks">
+          <span class="perk-tag">2 personas</span>
+          <span class="perk-tag">7 noches</span>
+          <span class="perk-tag">Suite</span>
+          <span class="perk-tag">Balcón amplio</span>
+        </div>
+        <div class="hotel-price">
+          <span class="price-total">$89,669.46</span>
+          <span class="price-per">MXN · 2 personas</span>
+        </div>
+        <div style="font-size: 13px; color: var(--red-violet); font-weight: 500; margin-top: 4px;">$44,834.73 MXN por persona</div>
+      </div>
+    </div>
+
+    <!-- OPCIÓN 2 -->
+    <div class="hotel-card">
+      <div class="hotel-badge" style="background: var(--olive);">Opción 2 · Balcón</div>
+      <div class="hotel-body">
+        <div class="hotel-name">Habitación regular<br>con balcón</div>
+        <div class="hotel-perks">
+          <span class="perk-tag">2 personas</span>
+          <span class="perk-tag">7 noches</span>
+          <span class="perk-tag">Balcón</span>
+          <span class="perk-tag">Ubicación asignada al abordaje</span>
+        </div>
+        <div class="hotel-price">
+          <span class="price-total">$66,763.46</span>
+          <span class="price-per">MXN · 2 personas</span>
+        </div>
+        <div style="font-size: 13px; color: var(--red-violet); font-weight: 500; margin-top: 4px;">$33,381.73 MXN por persona</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    <strong>Opción 2 — Ubicación del camarote:</strong> en esta tarifa no se puede escoger el lugar de la habitación; la naviera lo asigna al momento del abordaje.
+  </div>
+
+  <div class="notice">
+    <strong>Qué incluye:</strong> Hospedaje + todas las comidas a bordo + entretenimiento + piscinas + bares + shows nocturnos.
+  </div>
+
+</section>
+
+<!-- ══ INCLUYE ═══════════════════════════ -->
+<section id="incluye" class="section">
+  <div class="section-header">
+    <div class="section-label">Lo que incluye</div>
+    <div class="section-title">Tu paquete<br>completo</div>
+    <p class="section-sub">Todo lo que está incluido en tu crucero por el Caribe.</p>
+  </div>
+
+  <div class="costs-wrap">
+
+    <div class="status-bar">
+      <div class="status-dot"></div>
+      <div class="status-text">Cotización · Crucero GRANDEUR OF THE SEAS</div>
+    </div>
+
+    <!-- INCLUIDO -->
+    <div class="costs-group">
+      <div class="costs-group-title">✓ Incluido en tu viaje</div>
+      <div class="cost-row">
+        <div class="cost-name">7 noches de crucero (camarote según opción elegida)</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Todas las comidas a bordo</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Entretenimiento y shows</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Piscinas y áreas de esparcimiento</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Acceso a bares y discoteca</div>
+      </div>
+    </div>
+
+    <!-- TABLA DETALLADA INCLUIDO / NO INCLUIDO -->
+    <div style="margin: 24px 0; border-top: 1px solid rgba(181, 50, 78, 0.1); padding-top: 24px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 100%;">
+
+        <!-- INCLUIDO -->
+        <div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--red-violet); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">✅</span> Incluido en tu tarifa
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🍽️ Comida</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✓ Desayuno, comida y cena en Main Dining Room</li>
+              <li style="margin-bottom: 4px;">✓ Buffet Windjammer Café</li>
+              <li style="margin-bottom: 4px;">✓ Snacks, pizza y opciones rápidas (según horario)</li>
+              <li>✓ Café, té, agua, limonada y té helado</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🛏️ Hospedaje</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✓ Tu camarote con balcón (suite o regular)</li>
+              <li style="margin-bottom: 4px;">✓ Limpieza diaria</li>
+              <li>✓ Servicio de camarero de cabina</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🎭 Entretenimiento</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✓ Shows estilo Broadway</li>
+              <li style="margin-bottom: 4px;">✓ Música en vivo</li>
+              <li style="margin-bottom: 4px;">✓ Comediantes (según itinerario)</li>
+              <li style="margin-bottom: 4px;">✓ Fiestas temáticas</li>
+              <li style="margin-bottom: 4px;">✓ Karaoke</li>
+              <li>✓ Cine en pantalla gigante</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🚢 Instalaciones</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✓ Albercas</li>
+              <li style="margin-bottom: 4px;">✓ Jacuzzis</li>
+              <li style="margin-bottom: 4px;">✓ Gimnasio</li>
+              <li style="margin-bottom: 4px;">✓ Pista para caminar/correr</li>
+              <li style="margin-bottom: 4px;">✓ Biblioteca</li>
+              <li>✓ Casino (entrada gratuita, jugar no)</li>
+            </ul>
+          </div>
+
+          <div>
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">💰 Propinas</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li>✓ Propinas incluidas para todo el personal</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- NO INCLUIDO -->
+        <div>
+          <div style="font-size: 14px; font-weight: 700; color: #999; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">❌</span> No está incluido
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">✈️ Traslados</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✗ Vuelos México - Panamá</li>
+              <li style="margin-bottom: 4px;">✗ Hospedaje pre-crucero en Panamá</li>
+              <li>✗ Traslados aeropuerto - puerto</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🍹 Bebidas</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✗ Bebidas alcohólicas</li>
+              <li style="margin-bottom: 4px;">✗ Refrescos embotellados</li>
+              <li style="margin-bottom: 4px;">✗ Mocktails premium</li>
+              <li style="margin-bottom: 4px;">✗ Café Starbucks</li>
+              <li>✗ Jugos naturales recién exprimidos</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🍴 Restaurantes especialidad</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✗ Chops Grille</li>
+              <li>✗ Izumi (si está disponible)</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🌐 Internet</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li>✗ Paquete VOOM Wi-Fi (compra por separado)</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🚢 Excursiones</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li>✗ Todas las excursiones en puertos</li>
+            </ul>
+          </div>
+
+          <div>
+            <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--olive); margin-bottom: 8px;">🧖 Spa</div>
+            <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+              <li style="margin-bottom: 4px;">✗ Masajes</li>
+              <li style="margin-bottom: 4px;">✗ Tratamientos</li>
+              <li>✗ Salón de belleza</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- OPCIONAL -->
+    <div class="costs-group">
+      <div class="costs-group-title">◆ Disponibles (consultar)</div>
+      <div class="cost-row">
+        <div class="cost-name">Vuelos México - Panamá y hospedaje pre-crucero</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Spa & Wellness Premium</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Bebidas alcohólicas premium</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-name">Excursiones en puertos (según destino)</div>
+      </div>
+    </div>
+
+    <!-- TOTALES -->
+    <div class="total-bar">
+      <div>
+        <div class="tl">Opción 1 · Suite con balcón amplio</div>
+        <div class="tv">$89,669.46</div>
+      </div>
+      <div class="ts">MXN · 2 personas<br>$44,834.73 por persona</div>
+    </div>
+
+    <div class="total-bar" style="background: var(--olive); margin-top: 12px;">
+      <div>
+        <div class="tl">Opción 2 · Regular con balcón</div>
+        <div class="tv">$66,763.46</div>
+      </div>
+      <div class="ts" style="opacity: 0.9;">MXN · 2 personas<br>$33,381.73 por persona</div>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    <strong>🎉 ¿Listos para reservar?</strong><br>Contáctanos para confirmar disponibilidad de camarotes y apartar tu lugar.
+  </div>
+
+</section>
+
+<!-- ══ TIPS ══════════════════════════════ -->
+<section id="tips" class="section">
+  <div class="section-header">
+    <div class="section-label">Lo que debes saber</div>
+    <div class="section-title">Información<br>importante</div>
+    <p class="section-sub">Documentos, dinero y tips para disfrutar tu crucero.</p>
+  </div>
+
+  <div class="info-wrap">
+
+    <!-- Documentos -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
+        </div>
+        <span>Documentos requeridos</span>
+      </div>
+      <ul class="info-list">
+        <li>Pasaporte vigente (mínimo 6 meses)</li>
+        <li>Tarjeta de desembarque del crucero</li>
+        <li>Visa (si aplica según nacionalidad)</li>
+        <li>Seguro de viaje recomendado</li>
+      </ul>
+    </div>
+
+    <!-- Embarque -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </div>
+        <span>Embarque y desembarque</span>
+      </div>
+      <ul class="info-list">
+        <li>Llega al puerto 3-4 horas antes del embarque</li>
+        <li>Presenta pasaporte e identificación</li>
+        <li>Pasa por seguridad y aduanas</li>
+        <li>Recibe tu tarjeta de camarote en el mostrador</li>
+      </ul>
+    </div>
+
+    <!-- Dinero -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="8"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <span>Dinero y pagos</span>
+      </div>
+      <ul class="info-list">
+        <li><strong>Monedas múltiples:</strong> USD en Panamá, Colombia usa COP, Aruba usa AWG, Curaçao usa ANG</li>
+        <li>A bordo: usa tu tarjeta de camarote para todo</li>
+        <li>En puertos: lleva efectivo o tarjeta de crédito</li>
+      </ul>
+    </div>
+
+    <!-- Equipaje -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9h18V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2zm0 0v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9"/></svg>
+        </div>
+        <span>Equipaje</span>
+      </div>
+      <ul class="info-list">
+        <li>2-3 maletas incluidas (verifica con naviera)</li>
+        <li>Ropa casual y formal (gala 1-2 noches)</li>
+        <li>Traje de baño y protector solar (importante)</li>
+        <li>Medicinas personales (Dramamine para mareos)</li>
+      </ul>
+    </div>
+
+    <!-- Maletas en el crucero -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9h18V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2zm0 0v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9M9 13h6"/></svg>
+        </div>
+        <span>Procedimiento Completo de Maletas en el Crucero</span>
+      </div>
+      <div style="font-size: 13px; line-height: 1.8; padding: 12px;">
+
+        <div style="background: rgba(181, 50, 78, 0.05); padding: 12px; border-radius: 6px; margin-bottom: 16px;">
+          <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px;">📍 DÍA 1 (EMBARQUE EN COLÓN)</div>
+          <p style="margin: 0 0 10px 0;"><strong>¿Qué pasa con tus maletas?</strong></p>
+          <p style="margin: 0 0 10px 0;">Cuando llegas al crucero, entras al camarote pero TUS MALETAS GRANDES NO ESTÁN AÚN. El personal del barco las recoge en el puerto y las entrega después.</p>
+
+          <p style="margin: 0 0 10px 0;"><strong>¿Qué debes llevar de MANO en una mochila o bolsa pequeña?</strong></p>
+          <ul style="margin: 0 0 10px 0; padding-left: 16px;">
+            <li><strong>Documentos:</strong> Pasaporte, identificación, seguro de viaje</li>
+            <li><strong>Medicinas:</strong> Todas tus medicinas personales (no esperes a que llegue la maleta)</li>
+            <li><strong>Para la alberca INMEDIATAMENTE:</strong> Traje de baño, short de playa, sandalias</li>
+            <li><strong>Toalla:</strong> Una toalla pequeña (hay toallas en el camarote pero quizás tarden)</li>
+            <li><strong>Artículos de higiene urgentes:</strong> Jabón, desodorante, cepillo de dientes, pasta dental</li>
+            <li><strong>Cargadores:</strong> Cargadores de celulares y power banks</li>
+            <li><strong>Celulares:</strong> Para comunicación y fotos</li>
+            <li><strong>Gafas o lentes de contacto:</strong> Si los usas</li>
+            <li><strong>Dinero/tarjetas:</strong> Efectivo y tarjetas de crédito para compras en puertos</li>
+            <li><strong>Cámara/GoPro:</strong> Si tienes, para no depender del celular</li>
+          </ul>
+
+          <p style="margin: 0 0 10px 0;"><strong>⏱️ Tiempo estimado:</strong> Las maletas llegan al camarote entre 4-8 horas después del embarque.</p>
+
+          <p style="margin: 0; color: var(--red-violet); font-weight: 600;"><strong>💡 PRO TIP:</strong> Mientras esperas las maletas, puedes entrar a la alberca con tu mochila de essentials. ¡No tienes que esperar!</p>
+        </div>
+
+        <div style="background: rgba(181, 50, 78, 0.05); padding: 12px; border-radius: 6px; margin-bottom: 16px;">
+          <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px;">🌙 NOCHE DEL DÍA 7 (ÚLTIMA NOCHE ANTES DE DESEMBARQUE)</div>
+          <p style="margin: 0 0 10px 0;"><strong>¿Qué pasa?</strong></p>
+          <p style="margin: 0 0 10px 0;">El crucero desembarca al día siguiente temprano (7:00 AM). La ÚLTIMA NOCHE, aproximadamente a las 11 PM, debes poner tus MALETAS GRANDES AFUERA del camarote. El personal las recoge y las baja del barco para entregarlas en el puerto.</p>
+
+          <p style="margin: 0 0 10px 0;"><strong>¿Qué haces ESA NOCHE?</strong></p>
+          <p style="margin: 0 0 10px 0;">Empacas SOLO lo que necesitas para esa noche y la mañana siguiente en UNA BOLSA PEQUEÑA O MALETA COMPACTA:</p>
+          <ul style="margin: 0 0 10px 0; padding-left: 16px;">
+            <li><strong>Para esa noche:</strong> Pijama de dormir</li>
+            <li><strong>Para la mañana:</strong> Ropa cómoda para el regreso (pantalón/short cómodo, camiseta, suéter)</li>
+            <li><strong>Higiene nocturna:</strong> Champú, acondicionador, jabón, toalla</li>
+            <li><strong>Higiene matutina:</strong> Cepillo de dientes, pasta, desodorante, jabón cara</li>
+            <li><strong>Ropa interior:</strong> Una o dos prendas (limpias para mañana)</li>
+            <li><strong>Calcetines:</strong> Para el viaje si los necesitas</li>
+            <li><strong>Medicinas:</strong> Tus medicinas personales</li>
+            <li><strong>Documentos:</strong> Pasaporte y documentos de viaje</li>
+            <li><strong>Dinero/tarjetas:</strong> Para tener a mano</li>
+            <li><strong>Cargadores:</strong> Por si necesitas cargar algo esa noche</li>
+          </ul>
+
+          <p style="margin: 0 0 10px 0;"><strong>¿QUÉ NO LLEVAR en la bolsa de la noche?</strong></p>
+          <p style="margin: 0 0 10px 0;"><strong>TODO LO DEMÁS VA EN LAS MALETAS GRANDES</strong> que se sacan afuera esa noche:</p>
+          <ul style="margin: 0 0 10px 0; padding-left: 16px;">
+            <li>Ropa del crucero (camisetas, shorts, vestidos)</li>
+            <li>Trajes de baño</li>
+            <li>Artículos de playa</li>
+            <li>Souvenirs</li>
+            <li>Perfumes/colonias</li>
+            <li>Libros/entretenimiento</li>
+            <li>Adaptadores no usados</li>
+            <li>Artículos de belleza/cosméticos</li>
+          </ul>
+
+          <p style="margin: 0 0 10px 0;"><strong>⏰ HORARIOS IMPORTANTES:</strong></p>
+          <ul style="margin: 0 0 10px 0; padding-left: 16px;">
+            <li><strong>Última cena:</strong> 7-8 PM</li>
+            <li><strong>Sacar maletas:</strong> Alrededor de 11 PM (VERIFICAR ANUNCIO DEL BARCO)</li>
+            <li><strong>Desembarque:</strong> 7:00 AM (tú bajas con tu bolsa pequeña)</li>
+            <li><strong>Reclamar maletas:</strong> En el puerto después de desembarcar</li>
+          </ul>
+
+          <p style="margin: 0; color: var(--red-violet); font-weight: 600;"><strong>🚨 CRÍTICO:</strong> Si olvidas algo en las maletas que metiste afuera, NO PODRÁS acceder a él hasta desembarcar en el puerto. Verifica muy bien lo que necesitas esa noche.</p>
+        </div>
+
+        <div style="background: rgba(181, 50, 78, 0.05); padding: 12px; border-radius: 6px;">
+          <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px;">📋 CHECKLIST RÁPIDO</div>
+          <ul style="margin: 0; padding-left: 16px;">
+            <li><strong>Día 1:</strong> ✅ Mochila con essentials + traje de baño para alberca inmediata</li>
+            <li><strong>Día 7 11 PM:</strong> ✅ Sacar maletas grandes afuera</li>
+            <li><strong>Día 7 noche:</strong> ✅ Guardar solo lo necesario en bolsa pequeña</li>
+            <li><strong>Día 8 7 AM:</strong> ✅ Bajar con bolsa pequeña + documentos</li>
+            <li><strong>Día 8 puerto:</strong> ✅ Reclamar maletas</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- En los puertos -->
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </div>
+        <span>En los puertos</span>
+      </div>
+      <ul class="info-list">
+        <li><strong>Cartagena:</strong> Ciudad amurallada, playas, tours históricos</li>
+        <li><strong>Aruba:</strong> Playas paradisíacas, windsurf, snorkel</li>
+        <li><strong>Curaçao:</strong> Punda colorida, buceo, tiendas duty-free</li>
+        <li>No salgas solo, mantén tu pasaporte a mano</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ COMPRAS ═══════════════════════════ -->
+<section id="compras" class="section">
+  <div class="section-header">
+    <div class="section-label">Recomendaciones</div>
+    <div class="section-title">Artículos para<br>tu Crucero</div>
+    <p class="section-sub">Lista completa de artículos esenciales y prácticos para disfrutar al máximo tu viaje. Todos disponibles en Mercado Libre.</p>
+  </div>
+
+  <div style="display: grid; gap: 16px; padding: 20px 16px 24px;">
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">📻 Comunicación y Entretenimiento</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Walkie talkies (comunicación a bordo)</li>
+        <li>✓ Bocina portátil Bluetooth</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">☀️ Protección Solar</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Protector solar para cara SPF 50+</li>
+        <li>✓ Protector solar para cuerpo SPF 50+</li>
+        <li>✓ Aloe vera gel (quemaduras)</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🏖️ Playa y Agua</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Toallas de microfibra (secado rápido)</li>
+        <li>✓ Bolsa de playa tote bag impermeable</li>
+        <li>✓ Bolsa de playa para noche en crucero</li>
+        <li>✓ Tapete impermeable portátil (picnic/playa)</li>
+        <li>✓ Careta y snorkel de buceo (1 juego)</li>
+        <li>✓ Aqua shoes (zapatos para agua)</li>
+        <li>✓ Bolsa para ropa mojada</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🧴 Higiene y Cuidado Personal</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Pads/discos desmaquillantes reutilizables</li>
+        <li>✓ Kit cepillo de dientes y pasta portátil</li>
+        <li>✓ Cepillo de cabello portátil</li>
+        <li>✓ Envases para champú (reutilizables)</li>
+        <li>✓ Envases para perfume</li>
+        <li>✓ Cosmetiquera/nécessaire de viaje</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">📦 Organización de Maleta</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Alhajeros de viaje (joyeros)</li>
+        <li>✓ Organizador de maletas</li>
+        <li>✓ Bolsas de almacenamiento al vacío + bomba aire</li>
+        <li style="font-size: 12px; color: var(--red-violet); margin-top: 6px;"><strong>Importante para guardar maleta bajo la cama del camarote.</strong></li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🔒 Documentación y Seguridad</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Portapasaportes (más de 1 persona)</li>
+        <li>✓ Correa para celular + tarjeta ID</li>
+        <li>✓ Cartera magnética para celular</li>
+        <li>✓ Cordón/Lanyard para Key Card crucero</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🔌 Carga y Energía</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Power bank/pila portátil</li>
+        <li>✓ Adaptador universal para enchufes</li>
+        <li>✓ Multicontacto para habitación (múltiples dispositivos)</li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🥤 Bebidas</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Termo reutilizable</li>
+        <li style="font-size: 12px; color: var(--red-violet); margin-top: 6px;"><strong>En caso de no comprar kit de bebidas del crucero.</strong></li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">📸 Fotografía</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Palo selfie con trípode (flexible)</li>
+        <li style="font-size: 12px; color: var(--red-violet); margin-top: 6px;"><strong>Para capturar momentos y grabar bajo el agua.</strong></li>
+      </ul>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.08), rgba(139, 158, 110, 0.08)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px;">
+      <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 8px; font-size: 14px;">🚢 Accesorios Importantes del Crucero</div>
+      <ul style="font-size: 13px; line-height: 1.6; margin: 0; padding-left: 16px; list-style-type: none;">
+        <li>✓ Cordón/Lanyard para Key Card</li>
+        <li style="color: var(--red-violet); font-size: 12px; font-weight: 500; line-height: 1.5; margin-top: 8px;">
+          <strong>⚠️ Importante:</strong> La tarjeta de crucero debe llevarse siempre colgada. Es muy fácil perderla en agua, playas o excursiones.
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="notice" style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.1), rgba(139, 158, 110, 0.1)); border-left: 4px solid var(--red-violet);">
+    <strong style="color: var(--red-violet);">🛒 Ver Colección Completa</strong><br>
+    <p style="margin: 8px 0 0; font-size: 13px;">Todos estos artículos están disponibles en nuestra colección curada de Mercado Libre. Compara opciones y precios:</p>
+    <a href="https://meli.la/2U8mCCM" target="_blank" style="display: inline-block; margin-top: 12px; padding: 10px 16px; background-color: var(--red-violet); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px; letter-spacing: 0.05em;">
+      🛒 Ver Artículos en Mercado Libre
+    </a>
+  </div>
+
+</section>
+
+<!-- ══ OUTFITS ═══════════════════════════ -->
+<section id="outfits" class="section">
+  <div class="section-header">
+    <div class="section-label">Planificación</div>
+    <div class="section-title">Guía de<br>Vestuario</div>
+    <p class="section-sub">Cronograma completo de qué usar en cada día del crucero.</p>
+  </div>
+
+  <div style="padding: 20px 16px 0;">
+
+  <!-- RECOMENDACIONES GENERALES -->
+  <div style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.1), rgba(139, 158, 110, 0.1)); border-left: 4px solid var(--red-violet); padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <div style="font-weight: 700; color: var(--red-violet); margin-bottom: 12px; font-size: 14px;">📋 Recomendaciones Generales</div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="font-weight: 600; color: var(--red-violet); margin-bottom: 6px;">🩳 Pijamas</div>
+      <p style="font-size: 13px; margin: 0; line-height: 1.6;">
+        Lleva pijamas ligeras de manga larga. Aunque el clima es cálido, el aire acondicionado del camarote puede ser muy fuerte por la noche.
+      </p>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="font-weight: 600; color: var(--red-violet); margin-bottom: 6px;">🧥 Suéteres y Chamarras</div>
+      <p style="font-size: 13px; margin: 0; line-height: 1.6;">
+        Empaca varios suéteres ligeros o chamarras casuales. El aire acondicionado en teatros, restaurantes, camarotes y áreas comunes del barco suele estar muy frío.
+      </p>
+    </div>
+
+    <div style="margin-bottom: 0;">
+      <div style="font-weight: 600; color: var(--red-violet); margin-bottom: 6px;">👠 Tacones</div>
+      <p style="font-size: 13px; margin: 0; line-height: 1.6; color: var(--red-violet);">
+        <strong>⚠️ No es necesario llevar tacones.</strong> Los pisos cómodos, sandalias elegantes o zapatos casuales son suficientes y mucho más prácticos en un crucero. El barco se mueve constantemente y los tacones pueden ser incómodos.
+      </p>
+    </div>
+  </div>
+
+  <!-- CRONOGRAMA DE OUTFITS -->
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 13px;">
+      <thead>
+        <tr style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.15), rgba(139, 158, 110, 0.15)); border-bottom: 2px solid var(--red-violet);">
+          <th style="padding: 12px; text-align: left; color: var(--red-violet); font-weight: 700;">Día</th>
+          <th style="padding: 12px; text-align: left; color: var(--red-violet); font-weight: 700;">Actividad</th>
+          <th style="padding: 12px; text-align: left; color: var(--red-violet); font-weight: 700;">Qué Ropa Llevar</th>
+          <th style="padding: 12px; text-align: left; color: var(--red-violet); font-weight: 700;">Recomendaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🚢 Día 1</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Embarque Crucero en Colón</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Ropa casual cómoda + mochila con essentials</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>⚠️ IMPORTANTE - Manejo de Maletas:</strong><br>Las maletas grandes se entregan en el puerto antes del check-in. Mientras llega tu equipaje al camarote, lleva EN UNA MOCHILA LO SIGUIENTE:<br>• Traje de baño (para entrar a la alberca)<br>• Ropa de playa/short<br>• Toalla pequeña<br>• Documentos/pasaporte<br>• Medicinas personales<br>• Cargadores y celulares<br>• Artículos de higiene personal (jabón, desodorante)<br>• Cámara/teléfono para fotos<br><strong>Cena:</strong> 🍽️ Cena de Bienvenida. Ropa elegante casual.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🇨🇴 Día 2</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Cartagena, Colombia</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Ropa bonita de playa, traje de baño y tenis</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>Cena:</strong> Pendiente (se actualizará cuando Royal publique la temática).</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🌊 Día 3</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Navegación</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Traje de baño y ropa de playa</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>Cena:</strong> Pendiente.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🇦🇼 Día 4</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Aruba</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Traje de baño, ropa de playa, sandalias y bloqueador</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>Cena:</strong> Pendiente.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🇨🇼 Día 5</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Curaçao</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Traje de baño, ropa de playa, sandalias y sombrero</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>Cena:</strong> Pendiente.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🌊 Día 6</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Altamar</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Traje de baño y ropa de playa</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;">Disfrutar albercas, jacuzzis y actividades del barco. <strong>Cena:</strong> Pendiente.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid rgba(181, 50, 78, 0.2);">
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">🌊 Día 7</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Altamar (ÚLTIMA NOCHE)</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Traje de baño y ropa de playa + maleta de viaje específica</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;"><strong>🚨 PROCEDIMIENTO CRÍTICO - MALETAS AFUERA:</strong><br>Esta es la ÚLTIMA NOCHE a bordo. Las maletas grandes se ponen AFUERA del camarote para recogerlas en el desembarque. EN UNA MALETA PEQUEÑA O BOLSA DE VIAJE deberás guardar SOLO ESTOS ARTÍCULOS para la noche y mañana:<br>• Champú y acondicionador<br>• Ropa interior<br>• Pijama cómoda<br>• Ropa para el día siguiente (cómoda para viajar)<br>• Cepillo de dientes y pasta<br>• Medicinas personales<br>• Documentos y pasaporte<br>• Cargadores<br><strong>Instrucciones:</strong> Después de la cena, empacar TODO lo demás en las maletas grandes y ponerlas afuera del camarote alrededor de las 11 PM según instrucciones del crucero.<br><strong>Cena:</strong> 🍸 Cena de gala de despedida. Ropa elegante.</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px; vertical-align: top; white-space: nowrap;">⚓ Día 8</td>
+          <td style="padding: 12px; vertical-align: top;"><strong>Desembarque en Colón</strong></td>
+          <td style="padding: 12px; vertical-align: top;">Ropa cómoda y tenis</td>
+          <td style="padding: 12px; vertical-align: top; font-size: 12px;">Ideal para viajar y facilitar el desembarque y el regreso a casa.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+
+  <div class="notice" style="background: linear-gradient(135deg, rgba(181, 50, 78, 0.1), rgba(139, 158, 110, 0.1)); border-left: 4px solid var(--red-violet); margin-top: 24px;">
+    <strong style="color: var(--red-violet);">💡 Consejos Finales</strong><br>
+    <ul style="font-size: 13px; line-height: 1.6; margin: 8px 0 0; padding-left: 16px;">
+      <li>Mantén flexibilidad en tu vestuario — el clima puede variar</li>
+      <li>Usa ropa transpirable durante el día</li>
+      <li>Lleva siempre un suéter o chamarra para el aire acondicionado</li>
+      <li>Prioriza comodidad sobre estilo formal (especialmente el calzado)</li>
+      <li>Trae más trajes de baño de los que crees que necesitas</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ══ TÉRMINOS ══════════════════════════ -->
+<section id="tyc" class="section">
+  <div class="section-header">
+    <div class="section-label">Transparencia</div>
+    <div class="section-title">Términos &<br>Condiciones</div>
+    <p class="section-sub">Información importante sobre la cotización y reserva.</p>
+  </div>
+
+  <div class="tyc-wrap">
+
+    <div class="tyc-item">
+      <div class="tyc-num">01 · Vigencia</div>
+      <div class="tyc-title">Tarifas actuales</div>
+      <div class="tyc-text">Los precios están sujetos a disponibilidad al momento de reservar. Pueden variar según disponibilidad de camarotes y fluctuaciones de tarifa.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">02 · Confirmación</div>
+      <div class="tyc-title">Reserva oficial</div>
+      <div class="tyc-text">La reservación se confirma con depósito (30%) o pago total. Saldo debe pagarse 60 días antes de embarque.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">03 · Crucero</div>
+      <div class="tyc-title">NO reembolsable · Se puede cambiar fecha</div>
+      <div class="tyc-text">El crucero no es reembolsable. Se puede cambiar de fecha sujeto a disponibilidad de camarotes. Por cambios dentro de 15 días del viaje: cargo de $250 USD por trabajo administrativo involucrado.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">04 · Camarote</div>
+      <div class="tyc-title">Ubicación según opción</div>
+      <div class="tyc-text">En la Opción 2 (habitación regular con balcón) no es posible escoger la ubicación del camarote; la naviera la asigna al momento del abordaje.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">05 · Cambios y ajustes</div>
+      <div class="tyc-title">Cargo administrativo</div>
+      <div class="tyc-text">Cualquier cambio en el itinerario realizado dentro de 15 días previos al viaje incluye un cargo de $250 USD por el trabajo administrativo y coordinación involucrado.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">06 · Documentos</div>
+      <div class="tyc-title">Tu responsabilidad</div>
+      <div class="tyc-text">Pasaporte vigente y visas necesarias son tu responsabilidad. Verifica requisitos según nacionalidad 3 meses antes.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">07 · Salud</div>
+      <div class="tyc-title">Bienestar a bordo</div>
+      <div class="tyc-text">Servicios médicos disponibles a bordo (costo extra). Recomendamos seguro de viaje con cobertura médica.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">08 · Propinas</div>
+      <div class="tyc-title">Incluidas</div>
+      <div class="tyc-text">Las propinas para el personal del crucero están incluidas en tu tarifa. No hay cargos adicionales.</div>
+    </div>
+
+    <div class="tyc-item">
+      <div class="tyc-num">09 · Aceptación</div>
+      <div class="tyc-title">Pago = Acuerdo</div>
+      <div class="tyc-text">El pago implica aceptación total de términos y condiciones de la naviera y agencia.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════ -->
+<footer class="footer">
+  <strong>Crucero por el Caribe · Enero 09 - 16, 2027</strong>
+  <span>Cotización · 8 días · GRANDEUR OF THE SEAS</span>
+  <div class="footer-vv"><em>Venimos a Vivir</em></div>
+</footer>
+
+</div><!-- FIN -->
+
+<script>
+  function show(id, btn) {
+    // Obtener la opción activa
+    const activeOption = document.querySelector('.option-wrapper.active');
+    
+    // Ocultar todas las secciones dentro de la opción activa
+    activeOption.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    
+    // Ocultar todos los botones de nav de la opción activa
+    activeOption.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    
+    // Mostrar sección seleccionada
+    const section = activeOption.querySelector(`#${id}`);
+    if (section) {
+      section.classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo({ top: activeOption.querySelector('.nav').offsetTop, behavior: 'smooth' });
+    }
+  }
+
+  function showOption(num, btn) {
+    // Ocultar todas las opciones
+    document.querySelectorAll('.option-wrapper').forEach(o => o.classList.remove('active'));
+    document.querySelectorAll('.nav-opt-btn').forEach(b => b.classList.remove('active'));
+    
+    // Mostrar opción seleccionada
+    const activeOption = document.getElementById('option-' + num);
+    activeOption.classList.add('active');
+    btn.classList.add('active');
+    
+    // Resetear a primera pestaña de la opción
+    activeOption.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    activeOption.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    
+    // Obtener primera sección y botón de la opción activa
+    const firstSection = activeOption.querySelector('.section');
+    const firstBtn = activeOption.querySelector('.nav-btn');
+    
+    if (firstSection) {
+      firstSection.classList.add('active');
+    }
+    if (firstBtn) {
+      firstBtn.classList.add('active');
+    }
+    
+    // Scroll a nav de opciones
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
